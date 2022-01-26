@@ -59,8 +59,7 @@ TEST(tf2_ros, buffer_client)
   executor.add_node(node);
 
   // Start spinning in a thread
-  std::thread spin_thread = std::thread(
-    std::bind(&rclcpp::executors::SingleThreadedExecutor::spin, &executor));
+  std::thread spin_thread = std::thread([&](){executor.spin();});
 
   //make sure that things are set up
   ASSERT_TRUE(client->waitForServer(std::chrono::seconds(4)));
@@ -103,8 +102,7 @@ TEST(tf2_ros, buffer_client_different_types)
   executor.add_node(node);
 
   // Start spinning in a thread
-  std::thread spin_thread = std::thread(
-    std::bind(&rclcpp::executors::SingleThreadedExecutor::spin, &executor));
+  std::thread spin_thread = std::thread([&](){executor.spin();});
 
   //make sure that things are set up
   ASSERT_TRUE(client->waitForServer(std::chrono::seconds(4)));

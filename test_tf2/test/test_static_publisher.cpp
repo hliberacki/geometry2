@@ -59,8 +59,7 @@ TEST(StaticTransformPublisher, a_b_different_times)
   rclcpp::executors::SingleThreadedExecutor executor;
   executor.add_node(node);
   // Start spinning in a thread
-  std::thread spin_thread = std::thread(
-    std::bind(&rclcpp::executors::SingleThreadedExecutor::spin, &executor));
+  std::thread spin_thread = std::thread([&]() { executor.spin(); });
 
   int attempts = 0;
 
@@ -92,8 +91,8 @@ TEST(StaticTransformPublisher, a_c_different_times)
   rclcpp::executors::SingleThreadedExecutor executor;
   executor.add_node(node);
   // Start spinning in a thread
-  std::thread spin_thread = std::thread(
-    std::bind(&rclcpp::executors::SingleThreadedExecutor::spin, &executor));
+  std::thread spin_thread = std::thread([&]() { executor.spin(); });
+
 
   int attempts = 0;
   while (!mB.canTransform("a", "c", tf2::timeFromSec(0))) {
@@ -124,8 +123,8 @@ TEST(StaticTransformPublisher, a_d_different_times)
   rclcpp::executors::SingleThreadedExecutor executor;
   executor.add_node(node);
   // Start spinning in a thread
-  std::thread spin_thread = std::thread(
-    std::bind(&rclcpp::executors::SingleThreadedExecutor::spin, &executor));
+  std::thread spin_thread = std::thread([&]() { executor.spin(); });
+;
 
   int attempts = 0;
 
@@ -173,8 +172,7 @@ TEST(StaticTransformPublisher, multiple_parent_test)
   rclcpp::executors::SingleThreadedExecutor executor;
   executor.add_node(node);
   // Start spinning in a thread
-  std::thread spin_thread = std::thread(
-    std::bind(&rclcpp::executors::SingleThreadedExecutor::spin, &executor));
+  std::thread spin_thread = std::thread([&]() { executor.spin(); });
 
   int attempts = 0;
 
